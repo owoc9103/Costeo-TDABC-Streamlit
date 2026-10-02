@@ -101,7 +101,7 @@ st.session_state.departamentos = st.data_editor(
         "pct_improductivo": st.column_config.NumberColumn("% improductivo (0-1)", min_value=0.0, max_value=1.0, step=0.05),
     },
     num_rows="fixed",
-    use_container_width=True,
+    width="stretch",
     hide_index=True,
     key="editor_departamentos",
 )
@@ -148,7 +148,7 @@ else:
             "volumen_mensual": st.column_config.NumberColumn("Volumen mensual", min_value=0, step=1),
         },
         num_rows="fixed",
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         key="editor_actividades",
     )
@@ -193,7 +193,7 @@ else:
             "valor_xi": st.column_config.NumberColumn("Valor Xi", min_value=0.0, step=1.0),
         },
         num_rows="fixed",
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         key="editor_variables",
     )
@@ -258,7 +258,7 @@ st.dataframe(
         "Overhead": "${:,.0f}",
         "Tasa ($/min)": "${:,.2f}",
     }),
-    use_container_width=True, hide_index=True
+    width="stretch", hide_index=True
 )
 
 # ---------- Fase 2: Tiempo por transaccion ----------
@@ -287,7 +287,7 @@ st.dataframe(
         "aporte_variables": "Aporte variables",
         "tiempo_tx_min": "Tiempo/tx (min)",
     }),
-    use_container_width=True, hide_index=True
+    width="stretch", hide_index=True
 )
 
 # ---------- Fase 3: Tiempo total consumido por actividad ----------
@@ -307,7 +307,7 @@ st.dataframe(
         "tiempo_total_min": "Tiempo total (min)",
     })
     .style.format({"Tiempo total (min)": "{:,.0f}"}),
-    use_container_width=True, hide_index=True
+    width="stretch", hide_index=True
 )
 
 # ---------- Fase 4: Costo por actividad y costo unitario ----------
@@ -337,7 +337,7 @@ st.dataframe(
         "Costo actividad": "${:,.2f}",
         "Costo unitario": "${:,.2f}",
     }),
-    use_container_width=True, hide_index=True
+    width="stretch", hide_index=True
 )
 
 # ---------- Fase 5: Capacidad no utilizada / ociosidad ----------
@@ -374,5 +374,5 @@ st.dataframe(
         "Costo ociosidad": "${:,.2f}",
         "% ociosidad": "{:.1%}",
     }),
-    use_container_width=True, hide_index=True
+    width="stretch", hide_index=True
 )

@@ -182,7 +182,7 @@ st.session_state.departamentos = st.data_editor(
         "pct_improductivo": st.column_config.NumberColumn("% improductivo (0-1)", min_value=0.0, max_value=1.0, step=0.05),
     },
     num_rows="fixed",
-    use_container_width=True,
+    width="stretch",
     hide_index=True,
     key="editor_departamentos",
 )
@@ -229,7 +229,7 @@ else:
             "volumen_mensual": st.column_config.NumberColumn("Volumen mensual", min_value=0, step=1),
         },
         num_rows="fixed",
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         key="editor_actividades",
     )
@@ -274,7 +274,7 @@ else:
             "valor_xi": st.column_config.NumberColumn("Valor Xi", min_value=0.0, step=1.0),
         },
         num_rows="fixed",
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         key="editor_variables",
     )
@@ -343,7 +343,7 @@ st.dataframe(
         "Overhead": "${:,.0f}",
         "Tasa ($/min)": "${:,.2f}",
     }),
-    use_container_width=True, hide_index=True
+    width="stretch", hide_index=True
 )
 
 # ---------- Fase 2: Tiempo por transaccion ----------
@@ -372,7 +372,7 @@ st.dataframe(
         "aporte_variables": "Aporte variables",
         "tiempo_tx_min": "Tiempo/tx (min)",
     }),
-    use_container_width=True, hide_index=True
+    width="stretch", hide_index=True
 )
 
 # ---------- Fase 3: Tiempo total consumido por actividad ----------
@@ -392,7 +392,7 @@ st.dataframe(
         "tiempo_total_min": "Tiempo total (min)",
     })
     .style.format({"Tiempo total (min)": "{:,.0f}"}),
-    use_container_width=True, hide_index=True
+    width="stretch", hide_index=True
 )
 
 # ---------- Fase 4: Costo por actividad y costo unitario ----------
@@ -426,7 +426,7 @@ st.dataframe(
         "Costo actividad": "${:,.2f}",
         "Costo unitario": "${:,.2f}",
     }),
-    use_container_width=True, hide_index=True
+    width="stretch", hide_index=True
 )
 
 # ---------- Fase 5: Capacidad no utilizada / ociosidad ----------
@@ -467,7 +467,7 @@ st.dataframe(
         "Costo ociosidad": "${:,.2f}",
         "% ociosidad": "{:.1%}",
     }),
-    use_container_width=True, hide_index=True
+    width="stretch", hide_index=True
 )
 
 
@@ -533,7 +533,7 @@ st.dataframe(
         "categoria": "Categoria",
     })
     .style.format({"% ociosidad": "{:.1%}"}),
-    use_container_width=True, hide_index=True,
+    width="stretch", hide_index=True,
 )
 
 # ---------- 2. Matriz Costo Unitario vs Volumen ----------
@@ -593,7 +593,7 @@ else:
             font=dict(size=11, color="gray"), opacity=0.7,
         )
 
-    st.plotly_chart(fig_matriz, use_container_width=True)
+    st.plotly_chart(fig_matriz, width="stretch")
 
 # ---------- 3. Descomposicion de la ecuacion de tiempo ----------
 st.subheader("Descomposicion de la ecuacion de tiempo por variable")
@@ -635,7 +635,7 @@ else:
             },
         )
         fig_desc.update_layout(barmode="stack", legend_title_text="Variable")
-        st.plotly_chart(fig_desc, use_container_width=True)
+        st.plotly_chart(fig_desc, width="stretch")
 
         st.dataframe(
             desc[["id_actividad", "id_variable", "descripcion", "aporte_min", "pct_aporte"]]
@@ -647,7 +647,7 @@ else:
                 "pct_aporte": "% aporte",
             })
             .style.format({"Aporte (min)": "{:,.2f}", "% aporte": "{:.1%}"}),
-            use_container_width=True, hide_index=True,
+            width="stretch", hide_index=True,
         )
 
 
@@ -986,7 +986,7 @@ def sim_render_escenario(sim_id_esc, sim_deps, sim_acts, sim_vars_df):
             "% ociosidad": "{:.1%}",
             "Costo ociosidad": "${:,.2f}",
         }, na_rep="—"),
-        use_container_width=True, hide_index=True,
+        width="stretch", hide_index=True,
     )
 
     st.subheader("Actividades")
@@ -1011,7 +1011,7 @@ def sim_render_escenario(sim_id_esc, sim_deps, sim_acts, sim_vars_df):
             "Costo actividad": "${:,.2f}",
             "Costo unitario": "${:,.2f}",
         }, na_rep="—"),
-        use_container_width=True, hide_index=True,
+        width="stretch", hide_index=True,
     )
 
     st.subheader("Variables")
@@ -1045,7 +1045,7 @@ def sim_render_escenario(sim_id_esc, sim_deps, sim_acts, sim_vars_df):
                 "Aporte (min)": "{:,.2f}",
                 "% del t/tx": "{:.1%}",
             }, na_rep="—"),
-            use_container_width=True, hide_index=True,
+            width="stretch", hide_index=True,
         )
 
     # Avisos: 100% ocioso y sobrecargado
@@ -1083,7 +1083,7 @@ def sim_render_comparar(sim_deps, sim_acts, sim_vars_df):
             _v = _resultados[_i]["kpi"][_key]
             _fila[sim_nombres[_i]] = _fmt.format(_v) if pd.notna(_v) else "—"
         _kpi_tabla.append(_fila)
-    st.dataframe(pd.DataFrame(_kpi_tabla), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(_kpi_tabla), width="stretch", hide_index=True)
 
     st.subheader("Por departamento")
     _ids_dep_all = set()
@@ -1113,7 +1113,7 @@ def sim_render_comparar(sim_deps, sim_acts, sim_vars_df):
                 _fila[f"$ oc ({sim_nombres[_i]})"] = "—"
         _rows_dep.append(_fila)
     if _rows_dep:
-        st.dataframe(pd.DataFrame(_rows_dep), use_container_width=True, hide_index=True)
+        st.dataframe(pd.DataFrame(_rows_dep), width="stretch", hide_index=True)
     else:
         st.info("Sin departamentos visibles en ningún escenario.")
 
@@ -1142,7 +1142,7 @@ def sim_render_comparar(sim_deps, sim_acts, sim_vars_df):
                 _fila[f"$ u ({sim_nombres[_i]})"] = "—"
         _rows_act.append(_fila)
     if _rows_act:
-        st.dataframe(pd.DataFrame(_rows_act), use_container_width=True, hide_index=True)
+        st.dataframe(pd.DataFrame(_rows_act), width="stretch", hide_index=True)
     else:
         st.info("Sin actividades visibles en ningún escenario.")
 
@@ -1179,7 +1179,7 @@ def sim_render_comparar(sim_deps, sim_acts, sim_vars_df):
                 _fila[f"Aporte ({sim_nombres[_i]})"] = "—"
         _rows_var.append(_fila)
     if _rows_var:
-        st.dataframe(pd.DataFrame(_rows_var), use_container_width=True, hide_index=True)
+        st.dataframe(pd.DataFrame(_rows_var), width="stretch", hide_index=True)
     else:
         st.info("Sin variables visibles en ningún escenario.")
 
@@ -1701,7 +1701,7 @@ def sens_render_tornado(sens_deps_all, sens_acts_all, sens_vars_all, sens_esc,
         height=max(320, 30 * len(_df_tor) + 120),
     )
     _fig.add_vline(x=0, line_dash="solid", line_color="gray")
-    st.plotly_chart(_fig, use_container_width=True)
+    st.plotly_chart(_fig, width="stretch")
     st.caption("Las barras comparan shocks distintos; revisa la magnitud indicada en cada etiqueta.")
 
     # Tabla
@@ -1716,7 +1716,7 @@ def sens_render_tornado(sens_deps_all, sens_acts_all, sens_vars_all, sens_esc,
             "Δ alto": _fmt_m if _met != "pct_ociosidad" else "{:+.1%}",
             "Elasticidad": "{:+.2f}",
         }, na_rep="—"),
-        use_container_width=True, hide_index=True,
+        width="stretch", hide_index=True,
     )
 
     # Nota didactica: volumen y costo unitario / tasa en TDABC
@@ -1830,7 +1830,7 @@ def sens_render_heatmap(sens_deps_all, sens_acts_all, sens_vars_all, sens_esc,
         xaxis_title="Overhead", yaxis_title="Empleados",
         height=max(350, 60 * len(_emp_vals) + 120),
     )
-    st.plotly_chart(_fig, use_container_width=True)
+    st.plotly_chart(_fig, width="stretch")
     st.caption(
         "⚠ capacidad insuficiente para el volumen. El cuadro negro marca la celda base "
         f"({_emp_base} empleados · ${_oh_base:,.0f} de overhead)."
